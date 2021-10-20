@@ -1,0 +1,782 @@
+/* ------------------------------------------------------ */
+/* > Colors and Variables */
+/* ------------------------------------------------------ */
+:root {
+	--accent-lighter: #a09beb;
+	--alt-accent: #02ac7d;
+	--alt-accent-darker: #009a72;
+	--alt-accent-lighter: #00d29a;
+	--code-color: var(--alt-accent-darker);
+	--html-tag-color: var(--alt-accent-darker);
+	--scrollbar-hover:  var(--alt-accent-lighter);
+	--pseudo-admonition-border: var(--accent-lighter);
+	--cursor-color: var(--accent-lighter);
+	--scrollbar-active: var(--accent-lighter);
+	--highlight-color: #00ff8866;
+	--highlight-alt1: #ffff0066;
+	--highlight-alt2: #00ffff66;
+	--search-match-hl: var(--highlight-alt2);
+	--bold-in-darkmode: hsl(30deg 100% 80%);
+	--unresolved-link-color: #0F80FF;
+	--backdrop-color: hsl(228deg 40% 7%);
+	--active-line: #adae9820;
+
+	--block-border-radius: 6px;
+	--resize-handle-thickness: 0.35em;
+	--scrollbar-thickness: 0.75em;
+	--image-size: 50%;
+	--inactive-pane-opacity: 75%;
+	--signature:"⟡";
+
+	--enhanced-line: #c48004;
+}
+.theme-light {
+	--editor-alt-accent: var(--alt-accent-darker);
+	--selection-color: #e8ddffDD;
+	--more-contrast-muted: #5E5E5E;
+	--grey-line-color: #888;
+	--image-zoom-bg: #444;
+	--button-hover: var(--alt-accent);
+	--longform-background: hsl(30deg 30% 98%);
+	--finished-task: hsl(74deg 36% 60%);
+	--spell-error-color: #7490FF;
+	--tooltip-notification-bg: var(--text-faint);
+	--tooltip-notification-text: var(--interactive-normal);
+	--tooltip-notification-border: var(--text-muted);
+}
+.theme-dark {
+	--editor-alt-accent: var(--alt-accent);
+	--selection-color: #3c243bDD;
+	--more-contrast-muted: #BBB;
+	--grey-line-color: #CCC;
+	--image-zoom-bg: #000;
+	--button-hover: var(--alt-accent-darker);
+	--longform-background: hsl(226deg 18% 13%);
+	--finished-task: hsl(74deg 36% 40%);
+	--spell-error-color: #637BE1;
+	--tooltip-notification-bg: var(--more-contrast-muted);
+	--tooltip-notification-text: var(--interactive-normal);
+	--tooltip-notification-border: var(--text-muted);
+}
+:root{
+	--default-font: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Microsoft YaHei Light", sans-serif;
+	--font-monospace: 'Source Code Pro', monospace;
+	--heading-font: Optima, Candara, "Helvetica Neue";
+	--mermaid-font: var(--font-monospace);
+	--longform-font: "Crimson Pro";
+
+	--h1-size: 1.7em;
+	--h2-size: 1.5em;
+	--h3-size: 1.3em;
+	--h4-size: 1.2em;
+	--h5-size: 1.1em;
+	--longform-font-size: 1.2em;
+}
+.CodeMirror-linenumber{
+	font-family: var(--font-monospace) !important;
+}
+input,
+button{
+	font-family: var(--default-font) !important;
+}
+/* ensures similar height of "#" and text of tags */
+.cm-formatting.cm-formatting-hashtag.cm-hashtag-begin.cm-hashtag.cm-meta{
+	font-family: var(--default-font);
+}
+/* >> Bold */
+/* Colored Bold to increase distinguishability */
+.theme-dark .cm-strong,
+.theme-dark .markdown-preview-view strong {
+  color: var(--bold-in-darkmode) !important;
+}
+/* fix bold for iA Writer Quattro */
+body:not(.not-ia-writer-font) .suggestion-highlight,
+body:not(.not-ia-writer-font) .cm-strong,
+body:not(.not-ia-writer-font) .markdown-preview-view strong,
+body:not(.not-ia-writer-font) .nav-file-title.is-active,
+body:not(.not-ia-writer-font) table:not(.dataview.table-view-table) th,
+body:not(.not-ia-writer-font) .svelte-23avsr[name~="projects"],
+body:not(.not-ia-writer-font) .draft-container.svelte-1jmafs.selected,
+body:not(.not-ia-writer-font) .draft-container.svelte-1jmafs.selected:hover,
+body:not(.not-ia-writer-font) .scene-container.svelte-1wlkmbt.selected:hover,
+body:not(.not-ia-writer-font) .scene-container.svelte-1wlkmbt.selected,
+body:not(.not-ia-writer-font) .svelte-23avsr[name~="projects"]{
+  text-rendering: geometricPrecision;
+}
+.suggestion-highlight,
+.cm-strong,
+.markdown-preview-view strong,
+.nav-file-title.is-active,
+table:not(.dataview.table-view-table) th,
+.svelte-23avsr[name~="projects"],
+.draft-container.svelte-1jmafs.selected,
+.draft-container.svelte-1jmafs.selected:hover,
+.scene-container.svelte-1wlkmbt.selected:hover,
+.scene-container.svelte-1wlkmbt.selected,
+.svelte-23avsr[name~="projects"]{
+  font-weight: 900;
+}
+
+/* ------------------------------------------------------ */
+/* > Scrollbar */
+/* ------------------------------------------------------ */
+/* hide all scrollbars except the one for the editor */
+::-webkit-scrollbar {
+	display: none;
+}
+.workspace-split.mod-vertical ::-webkit-scrollbar {
+	display: unset;
+	width: var(--scrollbar-thickness);
+}
+::-webkit-scrollbar {
+	display: none;
+}
+/* hover / active colors */
+::-webkit-scrollbar-thumb:hover{
+	background-color: var(--scrollbar-hover);
+}
+::-webkit-scrollbar:hover {
+	background-color: var(--background-secondary-alt);
+}
+::-webkit-scrollbar-thumb:active {
+	background-color: var(--scrollbar-active) !important;
+}
+
+/* ------------------------------------------------------ */
+/* > CODE BLOCKS & INLINE CODE */
+/* ------------------------------------------------------ */
+.cm-s-obsidian .HyperMD-codeblock,
+.theme-dark .cm-s-obsidian .HyperMD-codeblock {
+	font-size: 1em;
+	color: var(--code-color) !important;
+}
+.markdown-preview-view code,
+.cm-s-obsidian span.cm-inline-code {
+	font-size: 1em;
+	color: var(--enhanced-line) !important;
+}
+/*wrapping, preserving line breaks*/
+.markdown-preview-view code{
+  white-space: pre-wrap !important;
+}
+/* show language of Code Block in Preview Mode */
+/* snippet by Chetachi */
+pre {
+  position: relative;
+}
+pre[class*="language-"]::after {
+  content: attr(class);
+  font-size: 0.8em;
+  font-family: var(--font-monospace);
+  color: var(--text-muted);
+  position: absolute;
+  right: 5px;
+  bottom: 2px;
+}
+pre[class~="language-c"]:after {
+  content: "C";
+}
+pre[class~="language-python"]:after {
+  content: "Python";
+}
+pre[class~="language-nginx"]:after {
+  content: "Nginx";
+}
+pre[class~="language-css"]:after {
+  content: "CSS";
+}
+pre[class~="language-node"]:after {
+  content: "Node";
+}
+pre[class~="language-react"]:after {
+  content: "React";
+}
+pre[class~="language-javascript"]:after {
+  content: "JavaScript";
+}
+pre[class~="language-js"]:after {
+  content: "JavaScript";
+}
+pre[class~="language-php"]:after {
+  content: "PHP";
+}
+pre[class~="language-shell"]:after {
+  content: "Shell";
+}
+pre[class~="language-bash"]:after {
+  content: "Bash";
+}
+pre[class~="language-typescript"]:after {
+  content: "TypeScript";
+}
+pre[class~="language-shell"]:after {
+  content: "Shell";
+}
+pre[class~="language-flow"]:after {
+  content: "Flow";
+}
+pre[class~="language-sequence"]:after {
+  content: "Sequence";
+}
+pre[class~="language-sql"]:after {
+  content: "SQL";
+}
+pre[class~="language-yaml"]:after {
+  content: "YAML";
+}
+pre[class~="language-ini"]:after {
+  content: "INI";
+}
+pre[class~="language-xml"]:after {
+  content: "XML";
+}
+pre[class~="language-git"]:after {
+  content: "GIT";
+}
+pre[class~="language-cs"]:after {
+  content: "C#";
+}
+pre[class~="language-cpp"]:after {
+  content: "C++";
+}
+pre[class~="language-java"]:after {
+  content: "JAVA";
+}
+pre[class~="language-html"]:after {
+  content: "HTML";
+}
+pre[class~="language-txt"]:after {
+  content: "TXT";
+}
+/* fix for the buggy selection fo inline text
+https://forum.obsidian.md/t/inline-code-occludes-text-selection-and-vim-cursor/11552/10 */
+.theme-dark .cm-inline-code {
+  background-color: rgba(0, 0, 0, 0.2) !important;
+}
+
+/* ------------------------------------------------------ */
+/* > Spellcheck Error Overlay */
+/* ------------------------------------------------------ */
+/*change spellcheck styling*/
+.CodeMirror .cm-spell-error{
+	background-image: none;
+	text-decoration: underline solid var(--spell-error-color);
+	text-decoration-thickness: 2px;
+}
+/* do not spellcheck inside a blockquote, yaml, or code */
+.cm-hmd-frontmatter.cm-overlay.cm-spell-error,
+span.cm-quote.cm-quote-1.cm-overlay.cm-spell-error,
+.HyperMD-codeblock.cm-spell-error,
+span.cm-inline-code.cm-spell-error {
+	text-decoration: none;
+	background-image: none;
+}
+
+/* ------------------------------------------------------ */
+/* > Links, Tags, HTML, & Comments */
+/* ------------------------------------------------------ */
+/* hovered links in alt accent */
+.cm-string.cm-url:hover:not(.cm-formatting),
+.cm-hmd-internal-link:hover,
+.modal-content a:hover,
+.markdown-preview-view a.footnote-link:hover,
+.markdown-preview-view a.internal-link:hover,
+.markdown-preview-view a.external-link:hover {
+	color: var(--alt-accent) !important;
+	cursor: pointer;
+}
+/* unresolved links */
+a.internal-link.is-unresolved{
+  color: var(--unresolved-link-color);
+  opacity: 0.65 !important;
+}
+a.internal-link.is-unresolved:hover{
+  color: var(--alt-accent);
+  opacity: 0.8 !important;
+}
+/* dont underline the brackets */
+.cm-url.cm-formatting {
+	text-decoration: none !important;
+}
+/* tags */
+.cm-hashtag,
+a.tag {
+	color: var(--editor-alt-accent) !important;
+ 	text-decoration: none !important;
+}
+.cm-hashtag:hover,
+a.tag:hover {
+	cursor: pointer;
+	text-decoration: underline !important;
+}
+/*comments: more contrast */
+.cm-comment{
+	color: var(--text-muted) !important;
+}
+/* HTML Tags */
+.cm-tag.cm-bracket.cm-hmd-html-begin,
+.cm-tag.cm-bracket.cm-hmd-html-end,
+.cm-tag{
+	color: var(--html-tag-color) !important;
+	font-family: var(--font-monospace) !important;
+}
+
+/* ------------------------------------------------------ */
+/* > Command Palette & QuickSwitcher(s) */
+/* ------------------------------------------------------ */
+/* change font color of hotkeys */
+.suggestion-item.is-selected,
+.suggestion-item.is-selected .suggestion-flair,
+.suggestion-item.is-selected .suggestion-highlight{
+	color: var(--text-accent);
+}
+.suggestion-item:hover,
+.suggestion-item:hover .suggestion-flair{
+	color: var(--alt-accent);
+}
+.suggestion-item.is-selected .suggestion-hotkey,
+.suggestion-item:hover .suggestion-hotkey{
+	background-color: var(--background-secondary-alt);
+}
+.suggestion-item:hover,
+.suggestion-highlight,
+.suggestion-item:hover .suggestion-highlight{
+	color: var(--editor-alt-accent);
+}
+/* Another Quick Switcher */
+.another-quick-switcher__item__directory svg{
+	display: none;
+}
+.another-quick-switcher__item__directory::before{
+	content: "folder_open";
+	font-family: "Material Icons";
+	font-size: 1.4em;
+}
+.suggestion-item.is-selected .another-quick-switcher__item__directory{
+	color: var(--text-accent);
+	opacity: 0.7;
+}
+.suggestion-item:hover .another-quick-switcher__item__directory{
+	color: var(--editor-alt-accent);
+	opacity: 0.7;
+}
+
+/* ------------------------------------------------------ */
+/* > SIDEBAR */
+/* ------------------------------------------------------ */
+/* hover colors */
+.workspace-tab-header-inner-icon:hover,
+.workspace-tab-header-inner:hover svg,
+.nav-action-button:hover svg,
+.nav-action-button.is-active:hover svg {
+	color: var(--alt-accent);
+  cursor: pointer;
+}
+.workspace-tab-header-inner:active svg,
+.nav-action-button:active svg,
+.nav-action-button.is-active:active svg,
+.nav-action-button.is-active svg {
+	color: var(--text-accent) !important;
+}
+
+/* ------------------------------------------------------ */
+/* > HIGHLIGHT & SELECTION */
+/* ------------------------------------------------------ */
+/* highlight active line */
+.CodeMirror-activeline .CodeMirror-linebackground {
+	background-color: var(--active-line);
+	border-radius: 8px;
+}
+/* change highlight color */
+.markdown-preview-view mark,
+.cm-s-obsidian span.cm-highlight {
+	background-color: var(--highlight-color);
+}
+/* color for selected text */
+.theme-light,
+.theme-dark {
+	--text-selection: var(--selection-color);
+}
+
+/* ------------------------------------------------------ */
+/* > Multi-Color Highlighting */
+/* ------------------------------------------------------ */
+/* thanks to @Atlas for these snippets */
+/* https://discord.com/channels/686053708261228577/702656734631821413/881443661269827656 */
+/* Yellow Highlight */
+span.cm-strong.cm-highlight{
+  font-weight: normal;
+  background-color: var(--highlight-alt1);
+}
+.markdown-preview-view strong > mark{
+  font-weight: normal !important;
+  background-color: var(--highlight-alt1) !important;
+}
+/* Cyan Highlight */
+span.cm-em.cm-highlight {
+  font-style: initial;
+  background-color: var(--highlight-alt2);
+}
+.markdown-preview-view em > mark {
+  font-style: initial !important;
+  background-color: var(--highlight-alt2) !important;
+}
+
+/* ------------------------------------------------------ */
+/* > Pandoc Citations & Footnotes */
+/* ------------------------------------------------------ */
+/* Pandoc Citations (applies to all []-links) */
+body:not(.no-pandoc-citation-emphasis) .cm-hmd-barelink,
+body:not(.no-pandoc-citation-emphasis) .cm-link.cm-quote.cm-hmd-barelink {
+	color: var(--text-accent) !important;
+}
+/* Footnotes */
+/* set space above and below horizontal line that seperates footnotes */
+.markdown-preview-view .footnotes hr {
+	margin-top: 60px;
+	margin-bottom: 10px;
+}
+/* footnotes preview */
+.markdown-preview-section .footnotes {
+	font-size: 85%;
+	text-align: justify;
+	hyphens: auto;
+}
+.markdown-preview-section .footnotes ol {
+  padding-inline-start: 1.6em;
+}
+/* applies to number-references in the footnote text */
+span.cm-link.cm-hmd-footnote {
+	color: var(--text-accent) !important;
+	vertical-align: top;
+}
+/* footnotes (at the bottom) */
+.HyperMD-footnote.CodeMirror-line {
+	font-size: 85%;
+	text-align: justify;
+	hyphens: auto;
+	padding-left: 5px; /* same of paragraphs */
+}
+/* remove underline which only decreases redability */
+.markdown-preview-view a.footnote-link{
+	text-decoration: none;
+}
+
+/* ------------------------------------------------------ */
+/* > HORIZONTAL LINE (HR)*/
+/* ------------------------------------------------------ */
+/* increased redability in edit mode */
+.cm-s-obsidian span.cm-hr {
+	color: var(--text-muted);
+	letter-spacing: 0.12em;
+}
+/* increase readability in preview mode */
+.markdown-preview-view hr{
+	border-top-width: 2.5px;
+	border-color: var(--more-contrast-muted);
+	opacity: 0.7;
+}
+
+/* ------------------------------------------------------ */
+/* > TABLES */
+/* ------------------------------------------------------ */
+/*add some more table styling, e.g. from https://forum.obsidian.md/t/custom-css-for-tables-5-new-styles-ready-to-use-in-your-notes/17084*/
+/* normal tables */
+table:not(.dataview.table-view-table) td,
+table:not(.dataview.table-view-table) th {
+	border: 1.5px ridge var(--text-muted);
+}
+table:not(.dataview.table-view-table) th {
+	background-color: var(--background-secondary-alt);
+	font-weight: 900;
+}
+.theme-dark table:not(.dataview.table-view-table) th {
+	color: var(--bold-in-darkmode);
+}
+.markdown-preview-view table:not(.dataview.table-view-table) {
+	table-layout: fixed;
+	width: 100%;
+}
+
+/* ------------------------------------------------------ */
+/* > HEADINGS / HEADERS */
+/* ------------------------------------------------------ */
+/* Alternation between italic & different font style for all
+headings to improve distinguishability = more readability */
+.cm-header-1,
+.cm-header-2,
+.cm-header-3,
+.cm-header-4,
+.cm-header-5,
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5{
+	font-family: var(--heading-font);
+ 	line-height: 1.3em;
+}
+.cm-header-1,
+.markdown-preview-view h1 {
+	font-size: var(--h1-size);
+}
+.cm-header-2,
+.markdown-preview-view h2 {
+	font-size: var(--h2-size);
+}
+.cm-header-3,
+.markdown-preview-view h3{
+	font-size: var(--h3-size);
+}
+.cm-header-4,
+.markdown-preview-view h4{
+	font-size: var(--h4-size);
+}
+.cm-header-5,
+.markdown-preview-view h5 {
+	font-size: var(--h5-size);
+}
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5 {
+	margin-top: 1.2em;
+	margin-bottom: 0.5em;
+}
+body:not(.not-optima-font) .cm-header-1,
+body:not(.not-optima-font) .cm-header-2,
+body:not(.not-optima-font) .cm-header-3,
+body:not(.not-optima-font) .cm-header-4,
+body:not(.not-optima-font) .cm-header-5,
+body:not(.not-optima-font) .markdown-preview-view h1,
+body:not(.not-optima-font) .markdown-preview-view h2,
+body:not(.not-optima-font) .markdown-preview-view h3,
+body:not(.not-optima-font) .markdown-preview-view h4,
+body:not(.not-optima-font) .markdown-preview-view h5
+body:not(.not-optima-font) .modal.mod-community-theme .modal-title{
+  font-weight: 600;
+  letter-spacing: 0.5px;
+}
+
+body:not(.no-alternating-header-italics) .cm-header-2,
+body:not(.no-alternating-header-italics) .markdown-preview-view h2,
+body:not(.no-alternating-header-italics) .cm-header-4,
+body:not(.no-alternating-header-italics) .markdown-preview-view h4{
+  font-style: italic;
+}
+
+/* ------------------------------------------------------ */
+/* > Pseudo Admonitions (only for one-liners) */
+/* ------------------------------------------------------ */
+/* For H6 only (without following blocks or line breaks).
+Based on some CSS from @SlRvb, @gee & @Eleanor Konik */
+body:not(.not-optima-font) .cm-header-6,
+body:not(.not-optima-font) .markdown-preview-view h6{
+  font-weight: 600;
+  letter-spacing: -0.02em;
+}
+.cm-header-6,
+.markdown-preview-view h6{
+	font-family: var(--default-font);
+ 	font-size: 1em;
+}
+.markdown-preview-view h6 .heading-collapse-indicator.collapse-indicator.collapse-icon,
+.cm-header-6.cm-formatting.cm-formatting-header{
+	display: none;
+}
+/* when pseudo-admonition is also active line */
+.CodeMirror-activeline .HyperMD-header.HyperMD-header-6.CodeMirror-line {
+  border-radius: var(--block-border-radius) !important;
+  background-color: var(--active-line) !important;
+  color: var(--text-normal) !important;
+}
+.theme-dark .HyperMD-header.HyperMD-header-6.CodeMirror-line{
+  background-color: rgba(0, 0, 0, 0.4);
+}
+.theme-light .HyperMD-header.HyperMD-header-6.CodeMirror-line{
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.markdown-preview-view h6 {
+  background-color: var(--background-secondary-alt);
+}
+.HyperMD-header.HyperMD-header-6.CodeMirror-line,
+.markdown-preview-view h6 {
+	padding-left: 1em !important;
+	padding-bottom: 0.5em;
+	padding-top: 0.5em;
+	padding-bottom: 0.6em;
+	margin-bottom: 0;
+	border-left: 12px solid var(--pseudo-admonition-border) !important;
+	border-radius: var(--block-border-radius);
+	color: var(--text-normal) !important;
+}
+
+/* ------------------------------------------------------ */
+/* > BLOCKQUOTE */
+/* ------------------------------------------------------ */
+/* >> BLOCKQUOTE IN EDIT MODE */
+.cm-quote{
+  color: var(--more-contrast-muted) !important;
+  font-style: italic;
+}
+.HyperMD-quote.HyperMD-quote-1{
+  text-align: justify;
+  hyphens: auto;
+  color: var(--text-normal);
+  padding-top: 0.4em;
+  padding-bottom: 0.5em;
+  padding-right: 0.8em;
+  border-radius: var(--block-border-radius);
+}
+/* fixes color when text is selected */
+/*https://forum.obsidian.md/t/inline-code-occludes-text-selection-and-vim-cursor/11552/10?u=pseudometa*/
+.theme-light .HyperMD-quote.HyperMD-quote-1{
+  background-color: rgba(0, 0, 0, 0.07) !important;
+}
+.theme-dark .HyperMD-quote.HyperMD-quote-1{
+  background-color: rgba(0, 0, 0, 0.35) !important;
+}
+/* when blockquote is also active line */
+.CodeMirror-activeline .HyperMD-quote.HyperMD-quote-1.CodeMirror-line {
+  border-radius: 5px !important;
+  background-color: var(--active-line) !important;
+  color: var(--text-normal) !important;
+}
+/* the ">"*/
+.cm-formatting.cm-formatting-quote{
+  font-weight: 600;
+  font-style: unset;
+}
+/* underline emphasis in blockquote, since they are italic already */
+.markdown-preview-view blockquote > p > em,
+span.cm-em.cm-quote.cm-quote-1{
+	text-decoration: underline;
+}
+/* style links in blockquotes, e.g. es quote sources */
+.cm-link.cm-quote.cm-quote-1:not(.cm-formatting){
+	color: var(--text-accent) !important;
+}
+.cm-string.cm-url.cm-quote.cm-quote-1,
+.cm-link.cm-quote.cm-quote-1{
+	font-style: unset;
+}
+/* BLOCKQUOTE IN PREVIEW */
+/* Add quotation character before quote */
+blockquote:before {
+	font: 20px Times;
+	content: "”";
+	font-size: 3em;
+	line-height: 0;
+	vertical-align: -0.45em;
+	color: var(--more-contrast-muted);
+}
+blockquote p {
+	display: inline;
+}
+blockquote {
+	margin-left: 0 !important;
+	border-radius: var(--block-border-radius) !important;
+	border: 2px solid var(--text-faint) !important;
+	padding-left: 0.8em !important;
+	padding-right: 0.8em !important;
+	padding-top: 0.4em !important;
+	padding-bottom: 0.5em !important;
+	font-style: italic;
+	margin-top: 1.5em;
+	margin-bottom: 2em;
+	text-align: justify;
+	hyphens: auto;
+	color: var(--more-contrast-muted);
+   background-color: var(--background-primary-alt);
+}
+
+/* ------------------------------------------------------ */
+/* > Mermaid */
+/* ------------------------------------------------------ */
+/* https://forum.obsidian.md/t/ability-to-resize-and-align-mermaid-diagrams/7019/11?u=pseudometa*/
+div.mermaid {
+    text-align: center;
+}
+svg[id^="m"][width][height][viewBox] {
+    min-width: 350px;
+    max-width: 100%;
+    width: 100%;
+    height: auto;
+}
+
+/* ------------------------------------------------------ */
+/* > BULLET POINT RELATIONSHIP LINES */
+/* ------------------------------------------------------ */
+/* based on css from the outliner plugin */
+/* https://github.com/vslinko/obsidian-outliner/blob/main/styles.css */
+/* edit mode */
+.cm-hmd-list-indent .cm-tab {
+	position: relative;
+}
+.cm-hmd-list-indent .cm-tab::before {
+	content: "";
+	border-left: 1px solid var(--text-faint);
+	position: absolute;
+	left: 3px;
+	top: -9px;
+	bottom: -9999px;
+}
+/* ":not(.HyperMD-table-2)" prevents targeting tables */
+.cm-s-obsidian .CodeMirror-line:not(.HyperMD-table-2) {
+	position: relative;
+	overflow: hidden;
+}
+/* Preview Mode */
+ul ul,
+ol ol,
+ul ol,
+ol ul {
+  position: relative;
+}
+ul ul::before,
+ol ol::before,
+ul ol::before,
+ol ul::before {
+  content: "";
+  border-left: 1px solid var(--text-faint);
+  position: absolute;
+  left: -1rem;
+  top: 0;
+  bottom: 0;
+}
+
+/* ------------------------------------------------------ */
+/* > DARK MODE PDFs */
+/* ------------------------------------------------------ */
+/*snippet from @phibr0*/
+.theme-dark .pdf-embed iframe,
+.theme-dark .workspace-leaf-content[data-type="pdf"] iframe {
+    filter: invert(0.85);
+}
+
+/* ------------------------------------------------------ */
+/* > MOBILE */
+/* ------------------------------------------------------ */
+/* slightly thinner on mobile */
+.is-mobile .view-header {
+	height: 2.4em;
+}
+
+/* ------------------------------------------------------ */
+/* > SMALL FIXES */
+/* ------------------------------------------------------ */
+/* numbers with same width */
+body,
+.app-container {
+	-webkit-font-feature-settings: "tnum";
+	-moz-font-feature-settings: "tnum";
+	font-feature-settings: "tnum";
+	-webkit-font-variant-numeric: tabular-nums;
+	-moz-font-variant-numeric: tabular-nums;
+	font-variant-numeric: tabular-nums;
+}
+/* fix html comments by disabling ligatures in edit mode */
+.CodeMirror.cm-s-obsidian {
+	font-feature-settings: "liga" 0;
+}
